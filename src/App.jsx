@@ -1,10 +1,11 @@
 // import { useState } from 'react';
+import Gameboard from './components/gameboard';
 import './App.css';
 
 function App() {
   return (
     <>
-      <h1>Delete this.</h1>
+      <Gameboard></Gameboard>
     </>
   );
 }
