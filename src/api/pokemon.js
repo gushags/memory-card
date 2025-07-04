@@ -1,10 +1,8 @@
 // pokemon.js
 
-const pokeApiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=12';
-
 async function fetchPokemonList() {
   try {
-    const response = await fetch(pokeApiUrl);
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12');
     const pokemonData = await response.json();
     const pokemons = pokemonData.results.map(async (element) => {
       const data = await fetchPokemonSprites(element.url);
@@ -12,6 +10,7 @@ async function fetchPokemonList() {
       let backSprite = data.back_default;
 
       return {
+        key: element.name,
         name: element.name,
         imgUrl: `assets/img/${element.name}.png`,
         front: frontSprite,
@@ -27,6 +26,7 @@ async function fetchPokemonList() {
 async function fetchPokemonSprites(url) {
   const response = await fetch(url);
   const data = await response.json();
+  // send sprites data only to calling function
   return data.sprites;
 }
 
