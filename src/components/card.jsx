@@ -1,15 +1,15 @@
-function Card({ card }) {
+function Card(key, pokename, imgUrl, front, back) {
   return (
-    <div className='card' key={card.key}>
+    <div className='card' key={key}>
       <div className='top-sprites'>
-        <img src={card.front} />
-        <img src={card.back} alt='' />
+        <img src={front} />
+        <img src={back} alt='' />
       </div>
-      <img src={card.imgUrl} alt={card.name} />
-      <h3 className='title'>{card.name}</h3>
+      <img src={imgUrl} alt={pokename} />
+      <h3 className='title'>{pokename}</h3>
       <div className='bottom-sprites'>
-        <img src={card.front} />
-        <img src={card.back} alt='' />
+        <img src={front} />
+        <img src={back} alt='' />
       </div>
     </div>
   );
