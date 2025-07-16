@@ -80,7 +80,7 @@ function Gameboard() {
     } else if (currentScore > highScore) {
       setHighScore(currentScore);
     }
-  }, [currentScore, highScore]);
+  }, [currentScore, highScore, newGame]);
 
   function handleClick(e) {
     console.log(pokemons);

@@ -58,6 +58,33 @@
 .bottom-sprite-right,
 .bottom-sprite-left {
   height: 70px;
+  animation: rotatespriteleft 6s linear infinite;
+}
+
+.top-sprite-right,
+.bottom-sprite-left {
+  animation: rotatespriteleft 4s linear infinite;
+}
+.bottom-sprite-right,
+.top-sprite-left {
+  animation: rotatespriteright 6s linear infinite;
+}
+
+@keyframes rotatespriteleft {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(-180deg);
+  }
+}
+@keyframes rotatespriteright {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
 }
 
 .title {
@@ -68,5 +95,14 @@
 
 /* scoreboard */
 #scoreboard {
-  background-color: aqua;
+  margin: 10px;
+}
+
+#scoreboard p {
+  margin-bottom: 30px;
+  font-size: large;
+}
+
+h2 {
+  padding-top: 10px;
 }

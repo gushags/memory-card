@@ -6,10 +6,10 @@ function Scoreboard({ highScore, currentScore }) {
         Click a card. But don't click any twice. If you reach 12 in a row, you
         win.
       </p>
-      <h4>Score:</h4>
-      <p>{currentScore}</p>
-      <h4>High Score:</h4>
-      <p>{highScore}</p>
+      <h2>Score:</h2>
+      <h3>{currentScore}</h3>
+      <h2>High Score:</h2>
+      <h3>{highScore}</h3>
     </div>
   );
 }
