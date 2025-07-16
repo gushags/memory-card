@@ -57,7 +57,7 @@ function Gameboard() {
         );
       });
     }
-  }, [pokeUrls, pokeData]);
+  }, [pokeUrls]);
 
   useEffect(() => {
     if (pokeData) {
@@ -69,54 +69,27 @@ function Gameboard() {
     }
   }, [pokeData]);
 
-  // not working
   function handleClick(e) {
+    console.log(pokemons);
     if (e.currentTarget.getAttribute('chosen') == 0) {
+      const newBoard = pokemons
+        .map((p) => {
+          if (p.pokename == e.currentTarget.getAttribute('name')) {
+            return { ...p, chosen: 1 };
+          } else {
+            return p;
+          }
+        })
+        .sort(() => Math.random() - 0.5);
+      setPokemons(newBoard);
       // add 1 to score
       setCurrentScore(currentScore + 1);
-      console.log(pokemons);
-      console.log(e.currentTarget.getAttribute('name'));
-      setPokemons(
-        pokemons
-          .map((pokemon) => {
-            if (pokemon.pokename == e.currentTarget.getAttribute('name')) {
-              return { ...pokemon, chosen: 1 };
-            } else {
-              return { ...pokemon };
-            }
-          })
-          .sort(() => Math.random() - 0.5)
-      );
-      // toggle chosen to true
+
       // then shuffle the cards
     } else {
       // you lose, game is over
     }
   }
-
-  // function handleCardClick(e) {
-  //   if (e.currentTarget.getAttribute('clicks') == 0) {
-  //     setPokemons(
-  //       pokemons
-  //         .map((p) => {
-  //           if (p.name == e.currentTarget.getAttribute('name')) {
-  //             return { ...p, damageTaken: 1 };
-  //           } else {
-  //             return { ...p };
-  //           }
-  //         })
-  //         .sort(() => Math.random() - 0.5)
-  //     );
-  //   } else {
-  //     setPokemons(
-  //       pokemons
-  //         .map((p) => {
-  //           return { ...p, damageTaken: 0 };
-  //         })
-  //         .sort(() => Math.random() - 0.5)
-  //     );
-  //   }
-  // }
 
   function capitalize(word) {
     const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
@@ -134,7 +107,7 @@ function Gameboard() {
         <h4>Score:</h4>
         <p>{currentScore}</p>
         <h4>High Score:</h4>
-        <p>{highScore}</p>
+        <p>0</p>
       </div>
       <div id='card-container'>
         {pokemons &&
