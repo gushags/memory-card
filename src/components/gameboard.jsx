@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import Scoreboard from './scoreboard';
+import Card from './card';
 
 function Gameboard() {
   const [pokeUrls, setPokeUrls] = useState(null);
@@ -70,7 +72,12 @@ function Gameboard() {
   }, [pokeData]);
 
   useEffect(() => {
-    if (currentScore > highScore) {
+    if (currentScore == 12) {
+      setHighScore(currentScore);
+      if (confirm('You won!')) {
+        newGame();
+      }
+    } else if (currentScore > highScore) {
       setHighScore(currentScore);
     }
   }, [currentScore, highScore]);
@@ -90,62 +97,28 @@ function Gameboard() {
       setPokemons(newBoard);
       // add 1 to score
       setCurrentScore(currentScore + 1);
-
-      // then shuffle the cards
     } else {
       // you lose, game is over
+      if (confirm('Sorry, you lost. Play again?')) {
+        newGame();
+      }
     }
   }
 
-  function capitalize(word) {
-    const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
-    return capitalized;
+  function newGame() {
+    const newGame = pokemons
+      .map((p) => {
+        return { ...p, chosen: 0 };
+      })
+      .sort(() => Math.random() - 0.5);
+    setPokemons(newGame);
+    setCurrentScore(0);
   }
 
   return (
     <>
-      <div id='scoreboard'>
-        <h1>Memory Card</h1>
-        <p>
-          Click a card. But don't click any twice. If you reach 12 in a row, you
-          win.
-        </p>
-        <h4>Score:</h4>
-        <p>{currentScore}</p>
-        <h4>High Score:</h4>
-        <p>{highScore}</p>
-      </div>
-      <div id='card-container'>
-        {pokemons &&
-          pokemons.map((pokemon) => (
-            <div
-              className='card'
-              key={pokemon.key}
-              name={pokemon.pokename}
-              chosen={pokemon.chosen}
-              onClick={handleClick}
-            >
-              <div className='top-sprite-left'>
-                <img src={pokemon.front} />
-              </div>
-              <div className='top-sprite-right'>
-                <img src={pokemon.back} alt='' />
-              </div>
-              <img
-                className='main-img'
-                src={pokemon.imgUrl}
-                alt={pokemon.pokename}
-              />
-              <div className='bottom-sprite-left'>
-                <img src={pokemon.back} alt='' />
-              </div>
-              <div className='bottom-sprite-right'>
-                <img src={pokemon.front} />
-              </div>
-              <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
-            </div>
-          ))}
-      </div>
+      <Scoreboard highScore={highScore} currentScore={currentScore} />
+      <Card pokemons={pokemons} handleClick={handleClick} />
     </>
   );
 }
