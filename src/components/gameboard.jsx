@@ -69,6 +69,12 @@ function Gameboard() {
     }
   }, [pokeData]);
 
+  useEffect(() => {
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
+    }
+  }, [currentScore, highScore]);
+
   function handleClick(e) {
     console.log(pokemons);
     if (e.currentTarget.getAttribute('chosen') == 0) {
@@ -107,7 +113,7 @@ function Gameboard() {
         <h4>Score:</h4>
         <p>{currentScore}</p>
         <h4>High Score:</h4>
-        <p>0</p>
+        <p>{highScore}</p>
       </div>
       <div id='card-container'>
         {pokemons &&
