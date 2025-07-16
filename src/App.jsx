@@ -5,7 +5,9 @@ import './App.css';
 function App() {
   return (
     <>
-      <Gameboard />
+      <div className='card-container'>
+        <Gameboard />
+      </div>
     </>
   );
 }

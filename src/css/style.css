@@ -1,1 +1,72 @@
 /* style.css */
+
+/* cards */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.card {
+  display: grid;
+  position: relative;
+  width: 22vw;
+  height: 250px;
+  margin: 10px;
+  background-color: bisque;
+  align-items: center;
+  justify-items: center;
+}
+
+.main-img {
+  width: 60%;
+}
+
+.top-sprite-left {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.top-sprite-right {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.bottom-sprite-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+}
+.bottom-sprite-right {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+.top-sprite-right,
+.top-sprite-left,
+.bottom-sprite-right,
+.bottom-sprite-left {
+  height: 70px;
+}
+
+.title {
+  position: relative;
+  bottom: 0;
+}
+/*
+<div className='card' key={pokemon.key}>
+            <div className='top-sprites'>
+              <img src={pokemon.front} />
+              <img src={pokemon.back} alt='' />
+            </div>
+            <img src={pokemon.imgUrl} alt={pokemon.pokename} />
+            <div className='bottom-sprites'>
+              <img src={pokemon.back} alt='' />
+              <img src={pokemon.front} />
+            </div>
+            <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
+          </div> */
