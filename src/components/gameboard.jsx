@@ -21,79 +21,81 @@ function Gameboard() {
 
   // This is only returning the last one and it's a promise, probably because fetch
   // is returning a promise
+
   useEffect(() => {
-    if (pokeUrls && pokeUrls.length === 12) {
-      pokeUrls.map((poke) =>
+    if (pokeUrls) {
+      const pokemon1 = fetch(pokeUrls[0].url).then((res) => res.json());
+      const pokemon2 = fetch(pokeUrls[1].url).then((res) => res.json());
+      const pokemon3 = fetch(pokeUrls[2].url).then((res) => res.json());
+      const pokemon4 = fetch(pokeUrls[3].url).then((res) => res.json());
+      const pokemon5 = fetch(pokeUrls[4].url).then((res) => res.json());
+      const pokemon6 = fetch(pokeUrls[5].url).then((res) => res.json());
+      const pokemon7 = fetch(pokeUrls[6].url).then((res) => res.json());
+      const pokemon8 = fetch(pokeUrls[7].url).then((res) => res.json());
+      const pokemon9 = fetch(pokeUrls[8].url).then((res) => res.json());
+      const pokemon10 = fetch(pokeUrls[9].url).then((res) => res.json());
+      const pokemon11 = fetch(pokeUrls[10].url).then((res) => res.json());
+      const pokemon12 = fetch(pokeUrls[11].url).then((res) => res.json());
+
+      Promise.all([
+        pokemon1,
+        pokemon2,
+        pokemon3,
+        pokemon4,
+        pokemon5,
+        pokemon6,
+        pokemon7,
+        pokemon8,
+        pokemon9,
+        pokemon10,
+        pokemon11,
+        pokemon12,
+      ]).then((response) => {
         setPokeData(
-          fetch(poke.url)
-            .then((res) => res.json())
-            .then((data) => {
-              return {
-                key: data.name,
-                pokename: data.name,
-                imgUrl: data.sprites.other.dream_world.front_default,
-                front: data.sprites.front_default,
-                back: data.sprites.back_default,
-              };
-            })
-        )
-      );
+          response.map((data) => {
+            return {
+              key: data.name,
+              pokename: data.name,
+              imgUrl: data.sprites.other.dream_world.front_default,
+              front: data.sprites.front_default,
+              back: data.sprites.back_default,
+            };
+          })
+        );
+      });
     }
   }, [pokeUrls]);
 
-  if (pokeData || pokeUrls) {
+  if (pokeUrls && pokeData) {
     console.log(pokeData);
-    console.log(pokeUrls);
   }
 
-  // useEffect(() => {
-  //   const fetchPokemonList = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         'https://pokeapi.co/api/v2/pokemon?limit=12'
-  //       );
-  //       const pokemonData = await response.json();
-  //       const pokemons = pokemonData.results.map(async (element) => {
-  //         const data = await fetchPokemonSprites(element.url);
-  //         setPokeData([
-  //           {
-  //             key: data.name,
-  //             pokename: data.name,
-  //             imgUrl: data.sprites.other.dream_world.front_default,
-  //             front: data.sprites.front_default,
-  //             back: data.sprites.back_default,
-  //           },
-  //         ]);
-  //         // need to set pokedata equal to these value each time through the map
-  //       });
-
-  //       console.log(pokeData);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   async function fetchPokemonSprites(url) {
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     return data;
-  //   }
-  //   fetchPokemonList();
-  // }, []);
+  function capitalize(word) {
+    const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
+    return capitalized;
+  }
 
   // Fix this ===>
   return (
     <>
       <h1>Test</h1>
-      {/* {pokeData.map((key, pokename, imgUrl, front, back) => (
-        <Card
-          key={key}
-          pokename={pokename}
-          imgUrl={imgUrl}
-          front={front}
-          back={back}
-        />
-      ))} */}
+      {pokeData &&
+        pokeData.map((pokemon) => (
+          <>
+            <div className='card' key={pokemon.key}>
+              <div className='top-sprites'>
+                <img src={pokemon.front} />
+                <img src={pokemon.back} alt='' />
+              </div>
+              <img src={pokemon.imgUrl} alt={pokemon.pokename} />
+              <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
+              <div className='bottom-sprites'>
+                <img src={pokemon.front} />
+                <img src={pokemon.back} alt='' />
+              </div>
+            </div>
+          </>
+        ))}
     </>
   );
 }
