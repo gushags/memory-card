@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
-// import fetchPokemonList from '../api/pokemon';
-import Card from './card';
 
 function Gameboard() {
-  //
-  // useEffect and an async call to the api
-  // to get the names of the pokemon
-  // as well as sprites if I want to use them
-
   const [pokeUrls, setPokeUrls] = useState(null);
   const [pokeData, setPokeData] = useState([]);
 
@@ -18,9 +11,6 @@ function Gameboard() {
       .then((data) => setPokeUrls(data.results))
       .catch((err) => console.error(err));
   }, []);
-
-  // This is only returning the last one and it's a promise, probably because fetch
-  // is returning a promise
 
   useEffect(() => {
     if (pokeUrls) {
@@ -75,74 +65,26 @@ function Gameboard() {
     return capitalized;
   }
 
-  // Fix this ===>
   return (
     <>
       <h1>Test</h1>
       {pokeData &&
         pokeData.map((pokemon) => (
-          <>
-            <div className='card' key={pokemon.key}>
-              <div className='top-sprites'>
-                <img src={pokemon.front} />
-                <img src={pokemon.back} alt='' />
-              </div>
-              <img src={pokemon.imgUrl} alt={pokemon.pokename} />
-              <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
-              <div className='bottom-sprites'>
-                <img src={pokemon.front} />
-                <img src={pokemon.back} alt='' />
-              </div>
+          <div className='card' key={pokemon.key}>
+            <div className='top-sprites'>
+              <img src={pokemon.front} />
+              <img src={pokemon.back} alt='' />
             </div>
-          </>
+            <img src={pokemon.imgUrl} alt={pokemon.pokename} />
+            <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
+            <div className='bottom-sprites'>
+              <img src={pokemon.front} />
+              <img src={pokemon.back} alt='' />
+            </div>
+          </div>
         ))}
     </>
   );
 }
 
 export default Gameboard;
-
-// // return function with map example
-// return (
-//   <div id='education'>
-//     <h2>Education section</h2>
-//     {educationList.map((edu, index) => (
-//       <div key={index}>
-//         <hr />
-//         <Field
-//           label='School'
-//           value={edu.school}
-//           onChange={(e) => handleChange(index, 'school', e.target.value)}
-//         />
-//         <Field
-//           label='Degree'
-//           value={edu.degree}
-//           onChange={(e) => handleChange(index, 'degree', e.target.value)}
-//         />
-//         <Field
-//           label='Date of Study'
-//           value={edu.dateOfStudy}
-//           onChange={(e) => handleChange(index, 'dateOfStudy', e.target.value)}
-//         />
-//       </div>
-//     ))}
-//     <button onClick={addEducation}>Add More Education</button>
-//   </div>
-// );
-
-// function StoreTable() {
-//   const { page, perPage } = useProductPagination();
-//   const [pokeData, setPokeData] = useState([]); // based on your data you should store it here in state
-
-//   useEffect(() => {
-//     const fetchPokemonData = async () => {
-//       try {
-//         const result = await fetchPokemonList();
-//         setPokeData(result);
-//       } catch (error) {
-//         console.error('Error fetching data:', error);
-//       }
-//     };
-
-//     fetchPokemonData();
-//   }, []);
