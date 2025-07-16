@@ -10,11 +10,13 @@
 .card {
   display: grid;
   position: relative;
-  width: 22vw;
+  width: 23vw;
   height: 250px;
   margin: 10px;
-  background-color: bisque;
-  align-items: center;
+  background-color: lightcyan;
+  border-radius: 15px;
+  border: 2px solid black;
+  align-items: end;
   justify-items: center;
 }
 
@@ -56,6 +58,7 @@
 .title {
   position: relative;
   bottom: 0;
+  margin-bottom: 20px;
 }
 /*
 <div className='card' key={pokemon.key}>

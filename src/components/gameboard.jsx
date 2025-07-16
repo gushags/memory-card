@@ -67,29 +67,31 @@ function Gameboard() {
 
   return (
     <>
-      {pokeData &&
-        pokeData.map((pokemon) => (
-          <div className='card' key={pokemon.key}>
-            <div className='top-sprite-left'>
-              <img src={pokemon.front} />
+      <div className='card-container'>
+        {pokeData &&
+          pokeData.map((pokemon) => (
+            <div className='card' key={pokemon.key}>
+              <div className='top-sprite-left'>
+                <img src={pokemon.front} />
+              </div>
+              <div className='top-sprite-right'>
+                <img src={pokemon.back} alt='' />
+              </div>
+              <img
+                className='main-img'
+                src={pokemon.imgUrl}
+                alt={pokemon.pokename}
+              />
+              <div className='bottom-sprite-left'>
+                <img src={pokemon.back} alt='' />
+              </div>
+              <div className='bottom-sprite-right'>
+                <img src={pokemon.front} />
+              </div>
+              <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
             </div>
-            <div className='top-sprite-right'>
-              <img src={pokemon.back} alt='' />
-            </div>
-            <img
-              className='main-img'
-              src={pokemon.imgUrl}
-              alt={pokemon.pokename}
-            />
-            <div className='bottom-sprite-left'>
-              <img src={pokemon.back} alt='' />
-            </div>
-            <div className='bottom-sprite-right'>
-              <img src={pokemon.front} />
-            </div>
-            <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
-          </div>
-        ))}
+          ))}
+      </div>
     </>
   );
 }
