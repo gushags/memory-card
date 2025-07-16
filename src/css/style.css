@@ -1,7 +1,12 @@
 /* style.css */
 
+#root {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
 /* cards */
-.card-container {
+#card-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
@@ -10,9 +15,9 @@
 .card {
   display: grid;
   position: relative;
-  width: 23vw;
+  width: 19vw;
   height: 250px;
-  margin: 10px;
+  margin: 5px;
   background-color: lightcyan;
   border-radius: 15px;
   border: 2px solid black;
@@ -60,16 +65,8 @@
   bottom: 0;
   margin-bottom: 20px;
 }
-/*
-<div className='card' key={pokemon.key}>
-            <div className='top-sprites'>
-              <img src={pokemon.front} />
-              <img src={pokemon.back} alt='' />
-            </div>
-            <img src={pokemon.imgUrl} alt={pokemon.pokename} />
-            <div className='bottom-sprites'>
-              <img src={pokemon.back} alt='' />
-              <img src={pokemon.front} />
-            </div>
-            <h3 className='title'>{capitalize(pokemon.pokename)}</h3>
-          </div> */
+
+/* scoreboard */
+#scoreboard {
+  background-color: aqua;
+}

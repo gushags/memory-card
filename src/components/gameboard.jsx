@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 function Gameboard() {
   const [pokeUrls, setPokeUrls] = useState(null);
   const [pokeData, setPokeData] = useState([]);
+  const [pokemons, setPokemons] = useState(null);
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   // fetch 12 pokemon urls
   useEffect(() => {
@@ -54,11 +57,66 @@ function Gameboard() {
         );
       });
     }
-  }, [pokeUrls]);
+  }, [pokeUrls, pokeData]);
 
-  if (pokeUrls && pokeData) {
-    console.log(pokeData);
+  useEffect(() => {
+    if (pokeData) {
+      setPokemons(
+        pokeData.map((p) => {
+          return { ...p, chosen: 0 };
+        })
+      );
+    }
+  }, [pokeData]);
+
+  // not working
+  function handleClick(e) {
+    if (e.currentTarget.getAttribute('chosen') == 0) {
+      // add 1 to score
+      setCurrentScore(currentScore + 1);
+      console.log(pokemons);
+      console.log(e.currentTarget.getAttribute('name'));
+      setPokemons(
+        pokemons
+          .map((pokemon) => {
+            if (pokemon.pokename == e.currentTarget.getAttribute('name')) {
+              return { ...pokemon, chosen: 1 };
+            } else {
+              return { ...pokemon };
+            }
+          })
+          .sort(() => Math.random() - 0.5)
+      );
+      // toggle chosen to true
+      // then shuffle the cards
+    } else {
+      // you lose, game is over
+    }
   }
+
+  // function handleCardClick(e) {
+  //   if (e.currentTarget.getAttribute('clicks') == 0) {
+  //     setPokemons(
+  //       pokemons
+  //         .map((p) => {
+  //           if (p.name == e.currentTarget.getAttribute('name')) {
+  //             return { ...p, damageTaken: 1 };
+  //           } else {
+  //             return { ...p };
+  //           }
+  //         })
+  //         .sort(() => Math.random() - 0.5)
+  //     );
+  //   } else {
+  //     setPokemons(
+  //       pokemons
+  //         .map((p) => {
+  //           return { ...p, damageTaken: 0 };
+  //         })
+  //         .sort(() => Math.random() - 0.5)
+  //     );
+  //   }
+  // }
 
   function capitalize(word) {
     const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
@@ -67,10 +125,27 @@ function Gameboard() {
 
   return (
     <>
-      <div className='card-container'>
-        {pokeData &&
-          pokeData.map((pokemon) => (
-            <div className='card' key={pokemon.key}>
+      <div id='scoreboard'>
+        <h1>Memory Card</h1>
+        <p>
+          Click a card. But don't click any twice. If you reach 12 in a row, you
+          win.
+        </p>
+        <h4>Score:</h4>
+        <p>{currentScore}</p>
+        <h4>High Score:</h4>
+        <p>{highScore}</p>
+      </div>
+      <div id='card-container'>
+        {pokemons &&
+          pokemons.map((pokemon) => (
+            <div
+              className='card'
+              key={pokemon.key}
+              name={pokemon.pokename}
+              chosen={pokemon.chosen}
+              onClick={handleClick}
+            >
               <div className='top-sprite-left'>
                 <img src={pokemon.front} />
               </div>
