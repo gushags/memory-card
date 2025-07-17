@@ -47,15 +47,17 @@ function Gameboard() {
         pokemon12,
       ]).then((response) => {
         setPokeData(
-          response.map((data) => {
-            return {
-              key: data.name,
-              pokename: data.name,
-              imgUrl: data.sprites.other.dream_world.front_default,
-              front: data.sprites.front_default,
-              back: data.sprites.back_default,
-            };
-          })
+          response
+            .map((data) => {
+              return {
+                key: data.name,
+                pokename: data.name,
+                imgUrl: data.sprites.other.dream_world.front_default,
+                front: data.sprites.front_default,
+                back: data.sprites.back_default,
+              };
+            })
+            .sort(() => Math.random() - 0.5)
         );
       });
     }
