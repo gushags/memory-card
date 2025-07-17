@@ -27,6 +27,7 @@
 
 .main-img {
   width: 60%;
+  z-index: 10;
 }
 
 .top-sprite-left {
@@ -91,6 +92,7 @@
   position: relative;
   bottom: 0;
   margin-bottom: 20px;
+  z-index: 20;
 }
 
 /* scoreboard */
